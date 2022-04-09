@@ -43,7 +43,7 @@ namespace Phonebook
             return inputString;
         }
 
-        public static string IsNumberValid(string inputString)
+        public static string IsPhoneNumberValid(string inputString)
         {
             while (true)
             {
@@ -67,10 +67,15 @@ namespace Phonebook
                         isValid = false;
                     }
                 }
+                if (inputString.Length > 11)
+                {
+                    Console.WriteLine(" Phonenumber is too long.");
+                    isValid = false;
+                }
 
                 if (!isValid)
                 {
-                    Console.Write(" Invalid entry, Please enter again: ");
+                    Console.Write(" Invalid Phonenumber, Please enter again: ");
                     inputString = Console.ReadLine();
                 }
                 else { break; }

@@ -9,7 +9,7 @@ namespace Phonebook
 {
     internal class ContactsController
     {
-        public static void ViewAllContacts()
+        internal void ViewAllContacts()
         {
             using (var context = new ContactContext())
             {
@@ -17,11 +17,32 @@ namespace Phonebook
                 TableVisuals.DisplayTable(results);
             }
         }
-        public static void InsertContact(Contact contact)
+        internal void InsertContact(Contact contact)
         {
             using (var context = new ContactContext())
             {
                 context.Contacts.Add(contact);
+                context.SaveChanges();
+            }
+        }
+
+        internal void UpdateContact(Contact contact, int inputId)
+        {
+            using (var context = new ContactContext())
+            {
+                var result = context.Contacts.Find(inputId);
+                result.Name = contact.Name;
+                result.Phonenumber = contact.Phonenumber;
+                context.SaveChanges();
+            }
+        }
+
+        internal void DeleteContact(int inputId)
+        {
+            using (var context = new ContactContext())
+            {
+                var result = context.Contacts.Find(inputId);
+                context.Contacts.Remove(result);
                 context.SaveChanges();
             }
         }

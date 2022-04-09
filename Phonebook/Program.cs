@@ -15,18 +15,10 @@ namespace Phonebook
             }
         }
 
-        public class ContactContext : DbContext
-        {
-            public DbSet<Contact> Contacts { get; set; }
-
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-                optionsBuilder.UseSqlServer(dbString);
-            }
-        }
-
         public static void MainMenu()
         {
+            UserInput userInput = new UserInput();
+            
             Console.Clear();
 
             Console.WriteLine("\n PHONEBOOK MAIN MENU\n\n" +
@@ -45,19 +37,36 @@ namespace Phonebook
                     Environment.Exit(0);
                     break;
                 case "1":
-                    ContactsController.ViewAllContacts();
+                    Console.Clear();
+                    userInput.DisplayTableInput();
+                    Console.WriteLine("\n Press any key to return to menu... ");
+                    Console.ReadKey();
                     break;
                 case "2":
-                    UserInput.AddContactInput();
+                    Console.Clear();
+                    userInput.AddContactInput();
                     break;
                 case "3":
+                    Console.Clear();
+                    userInput.UpdateContactInput();
                     break;
                 case "4":
+                    Console.Clear();
+                    userInput.DeleteContactInput();
                     break;
                 default:
                     Console.Write(" Invalid Entry. press any key to return... ");
                     Console.ReadKey();
                     break;
+            }
+        }
+        public class ContactContext : DbContext
+        {
+            public DbSet<Contact> Contacts { get; set; }
+
+            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            {
+                optionsBuilder.UseSqlServer(dbString);
             }
         }
     }
